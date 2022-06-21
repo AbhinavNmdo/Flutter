@@ -41,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
             Text("Welcome $name", style: const TextStyle(
               fontSize: 28,
               fontWeight: FontWeight.bold,
-              color: Colors.deepPurpleAccent,
+              color: Colors.deepPurple,
             )),
             const SizedBox(
               height: 20.0,
@@ -95,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       Material(
                           borderRadius: BorderRadius.circular(changeButton ? 45 : 10),
-                          color: Colors.deepPurpleAccent,
+                          color: Colors.deepPurple,
                           child: InkWell(
                               onTap: () => goToHome(context),
                               child: AnimatedContainer(
