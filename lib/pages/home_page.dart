@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:flutter_catelog/models/catelog.dart';
-import 'package:flutter_catelog/widgets/drawer.dart';
-import 'package:flutter_catelog/widgets/item_widget.dart';
+import 'package:flutter_catelog/utils/themes.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -32,45 +32,118 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Catelog App'),
-      ),
-      body: (CatelogModel.items != null && CatelogModel.items.isNotEmpty) ? GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            mainAxisSpacing: 15,
-            crossAxisSpacing: 15,
+      backgroundColor: MyTheme.creamColor,
+      body: SafeArea(
+        child: Container(
+          padding: Vx.m32,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CatelogHeader(),
+              if(CatelogModel.items != null && CatelogModel.items.isNotEmpty)
+                CatelogList().expand()
+              else
+                const Center(
+                  child: CircularProgressIndicator(),
+                )
+            ],
           ),
-          itemCount: CatelogModel.items.length,
-          itemBuilder: (context, index){
-            final item = CatelogModel.items[index];
-            return Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12)
-              ),
-              clipBehavior: Clip.antiAlias,
-              child: GridTile(
-                header: Container(
-                  padding: const EdgeInsets.all(12),
-                  // decoration: const BoxDecoration(
-                  //   color: Colors.deepPurple,
-                  // ),
-                  child: Text(
-                    item.name,
-                    style: const TextStyle(
-                      color: Colors.white,
-                    ),
-                  )
-                ),
-                footer: Text(item.price.toString()),
-                child: Image.network(item.image),
-              ),
-            );
-          }
-      ) : const Center(
-        child: CircularProgressIndicator(),
-      ),
-      drawer: MyDrawer(),
+        ),
+      )
     );
+  }
+}
+
+
+
+class CatelogHeader extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        "Catelog App".text.bold.xl5.color(MyTheme.darkBluishColor).make(),
+        "Trending Products".text.xl2.make(),
+      ],
+    );
+  }
+}
+
+
+class CatelogList extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: CatelogModel.items.length,
+      itemBuilder: (context, index){
+        final catelog = CatelogModel.items[index];
+        return CatelogItem(catelog: catelog);
+      },
+    );
+  }
+}
+
+class CatelogItem extends StatelessWidget {
+  final Item catelog;
+
+  const CatelogItem({super.key, required this.catelog})
+      : assert(catelog!=null);
+
+  @override
+  Widget build(BuildContext context) {
+    return VxBox(
+      child: Row(
+        children: [
+          CatelogImage(image: catelog.image),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                catelog.name.text.lg.color(MyTheme.darkBluishColor).bold.make(),
+                catelog.desc.text.textStyle(context.captionStyle).make(),
+                10.heightBox,
+                ButtonBar(
+                  alignment: MainAxisAlignment.spaceBetween,
+                  buttonPadding: EdgeInsets.zero,
+                  children: [
+                    "\$${catelog.price}".text.bold.xl.make(),
+                    ElevatedButton(
+                      onPressed: (){},
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                          MyTheme.darkBluishColor
+                        ),
+                        shape: MaterialStateProperty.all(
+                          StadiumBorder()
+                        ),
+                      ),
+                      child: "Buy".text.make(),
+                    )
+                  ],
+                ).pOnly(right: 8.0)
+              ],
+            ),
+          )
+        ],
+      ),
+    ).white.rounded.square(150).make().py16();
+  }
+}
+
+
+class CatelogImage extends StatelessWidget {
+  final String image;
+
+  const CatelogImage({super.key, required this.image}) : assert(image!=null);
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.network(
+        image
+    ).box.p8.rounded.color(MyTheme.creamColor).make().p16().w40(context);
   }
 }
