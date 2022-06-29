@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_catelog/home_widgets/catelog_image.dart';
 import 'package:flutter_catelog/models/catelog.dart';
+import 'package:flutter_catelog/pages/home_detail.dart';
 import 'package:flutter_catelog/utils/themes.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'catelog_image.dart';
+
 
 class CatelogList extends StatelessWidget {
 
@@ -13,7 +15,14 @@ class CatelogList extends StatelessWidget {
       itemCount: CatelogModel.items.length,
       itemBuilder: (context, index){
         final catelog = CatelogModel.items[index];
-        return CatelogItem(catelog: catelog);
+        return InkWell(
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context)=>HomeDetailPage(catelog: catelog)
+            )),
+          child: CatelogItem(catelog: catelog)
+        );
       },
     );
   }
@@ -30,7 +39,10 @@ class CatelogItem extends StatelessWidget {
     return VxBox(
       child: Row(
         children: [
-          CatelogImage(image: catelog.image),
+          Hero(
+            tag: Key(catelog.id.toString()),
+            child: CatelogImage(image: catelog.image)
+          ),
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
