@@ -5,24 +5,20 @@ import 'package:flutter_catelog/utils/themes.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'catelog_image.dart';
 
-
 class CatelogList extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       shrinkWrap: true,
       itemCount: CatelogModel.items.length,
-      itemBuilder: (context, index){
+      itemBuilder: (context, index) {
         final catelog = CatelogModel.items[index];
         return InkWell(
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context)=>HomeDetailPage(catelog: catelog)
-            )),
-          child: CatelogItem(catelog: catelog)
-        );
+            onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => HomeDetailPage(catelog: catelog))),
+            child: CatelogItem(catelog: catelog));
       },
     );
   }
@@ -32,7 +28,7 @@ class CatelogItem extends StatelessWidget {
   final Item catelog;
 
   const CatelogItem({super.key, required this.catelog})
-      : assert(catelog!=null);
+      : assert(catelog != null);
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +36,8 @@ class CatelogItem extends StatelessWidget {
       child: Row(
         children: [
           Hero(
-            tag: Key(catelog.id.toString()),
-            child: CatelogImage(image: catelog.image)
-          ),
+              tag: Key(catelog.id.toString()),
+              child: CatelogImage(image: catelog.image)),
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -57,16 +52,13 @@ class CatelogItem extends StatelessWidget {
                   children: [
                     "\$${catelog.price}".text.bold.xl.make(),
                     ElevatedButton(
-                      onPressed: (){},
+                      onPressed: () {},
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                            MyTheme.darkBluishColor
-                        ),
-                        shape: MaterialStateProperty.all(
-                            StadiumBorder()
-                        ),
+                        backgroundColor:
+                            MaterialStateProperty.all(MyTheme.darkBluishColor),
+                        shape: MaterialStateProperty.all(StadiumBorder()),
                       ),
-                      child: "Buy".text.make(),
+                      child: "Add to Cart".text.xs.make(),
                     )
                   ],
                 ).pOnly(right: 8.0)

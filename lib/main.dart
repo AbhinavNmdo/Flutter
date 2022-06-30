@@ -1,4 +1,6 @@
 import "package:flutter/material.dart";
+import 'package:flutter/services.dart';
+import 'package:flutter_catelog/pages/cart_page.dart';
 import 'package:flutter_catelog/pages/home_detail.dart';
 import 'package:flutter_catelog/pages/login_page.dart';
 import 'package:flutter_catelog/utils/routes.dart';
@@ -14,6 +16,12 @@ class myApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light.copyWith(
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.dark,
+        statusBarColor: MyTheme.creamColor,
+        systemNavigationBarColor: MyTheme.creamColor,
+        systemNavigationBarIconBrightness: Brightness.dark));
     return MaterialApp(
       themeMode: ThemeMode.light,
       debugShowCheckedModeBanner: false,
@@ -21,9 +29,10 @@ class myApp extends StatelessWidget {
       darkTheme: MyTheme.darkTheme(context),
       initialRoute: MyRoutes.homeRoute,
       routes: {
-        "/" : (context) => LoginPage(),
-        MyRoutes.loginRoute : (context) => LoginPage(),
-        MyRoutes.homeRoute : (context) => HomePage(),
+        "/": (context) => LoginPage(),
+        MyRoutes.loginRoute: (context) => LoginPage(),
+        MyRoutes.homeRoute: (context) => HomePage(),
+        MyRoutes.cartRoute: (context) => CartPage(),
       },
     );
   }
