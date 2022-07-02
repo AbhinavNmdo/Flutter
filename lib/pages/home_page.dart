@@ -18,6 +18,26 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+void _lightStatusNavBar() {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: MyTheme.creamColor,
+    systemNavigationBarColor: MyTheme.creamColor,
+    statusBarIconBrightness: Brightness.dark,
+    systemNavigationBarIconBrightness: Brightness.dark,
+  ));
+  print('hii');
+}
+
+void _darkStatusNavBar() {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: MyTheme.darkCreamColor,
+    systemNavigationBarColor: MyTheme.darkCreamColor,
+    statusBarIconBrightness: Brightness.light,
+    systemNavigationBarIconBrightness: Brightness.light,
+  ));
+  print('hii2');
+}
+
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
@@ -38,16 +58,22 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Theme.of(context).brightness == Brightness.light
+        ? _lightStatusNavBar()
+        : _darkStatusNavBar();
     return Scaffold(
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.pushNamed(context, MyRoutes.cartRoute);
           },
-          backgroundColor: MyTheme.darkBluishColor,
-          child: const Icon(CupertinoIcons.cart),
+          backgroundColor: Theme.of(context).buttonColor,
+          child: const Icon(
+            CupertinoIcons.cart,
+            color: Colors.white,
+          ),
           heroTag: const Key('50'),
         ),
-        backgroundColor: MyTheme.creamColor,
+        backgroundColor: Theme.of(context).canvasColor,
         body: SafeArea(
           child: Container(
             padding: Vx.m32,

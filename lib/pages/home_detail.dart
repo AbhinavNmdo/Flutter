@@ -12,9 +12,9 @@ class HomeDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyTheme.creamColor,
+      backgroundColor: Theme.of(context).canvasColor,
       bottomNavigationBar: Container(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         child: ButtonBar(
           alignment: MainAxisAlignment.spaceBetween,
           buttonPadding: EdgeInsets.zero,
@@ -24,7 +24,7 @@ class HomeDetailPage extends StatelessWidget {
               onPressed: () {},
               style: ButtonStyle(
                 backgroundColor:
-                    MaterialStateProperty.all(MyTheme.darkBluishColor),
+                    MaterialStateProperty.all(Theme.of(context).buttonColor),
                 shape: MaterialStateProperty.all(const StadiumBorder()),
               ),
               child: "Add to Cart".text.medium.make(),
@@ -51,11 +51,11 @@ class HomeDetailPage extends StatelessWidget {
                 edge: VxEdge.TOP,
                 child: Container(
                     width: context.screenWidth,
-                    color: Colors.white,
+                    color: Theme.of(context).cardColor,
                     child: Column(
                       children: [
                         catelog.name.text.xl4
-                            .color(MyTheme.darkBluishColor)
+                            .color(Theme.of(context).accentColor)
                             .bold
                             .make(),
                         const HeightBox(10),

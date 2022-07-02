@@ -14,7 +14,7 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
 
   goToHome(BuildContext context) async {
-    if(_formKey.currentState!.validate()) {
+    if (_formKey.currentState!.validate()) {
       setState(() {
         changeButton = true;
       });
@@ -29,98 +29,104 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.white,
-      child: Form(
-        key: _formKey,
-        child: Column(
-          children: [
-            Image.asset("assets/images/hey.png", fit: BoxFit.cover),
-            const SizedBox(
-              height: 20.0,
-            ),
-            Text("Welcome $name", style: const TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
-              color: Colors.deepPurple,
-            )),
-            const SizedBox(
-              height: 20.0,
-            ),
-            Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 32),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        validator: (value){
-                          if(value == null || value == ""){
-                            return "Username cannot be empty";
-                          }
-                        },
-                        decoration: const InputDecoration(
-                          hintText: "Enter Username",
-                          labelText: "Username",
-                          hintStyle: TextStyle(
-                              color: Colors.grey
+        color: Theme.of(context).canvasColor,
+        child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 50),
+                  child: Center(
+                      child: Image.asset(
+                    "assets/images/hey.png",
+                    fit: BoxFit.cover,
+                  )),
+                ),
+                const SizedBox(
+                  height: 20.0,
+                ),
+                const Text("Welcome",
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.deepPurple,
+                    )),
+                const SizedBox(
+                  height: 20.0,
+                ),
+                Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 20, horizontal: 32),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          TextFormField(
+                            validator: (value) {
+                              if (value == null || value == "") {
+                                return "Username cannot be empty";
+                              }
+                            },
+                            decoration: const InputDecoration(
+                              hintText: "Enter Username",
+                              labelText: "Username",
+                              hintStyle: TextStyle(color: Colors.grey),
+                            ),
+                            onChanged: (value) {
+                              name = value;
+                              setState(() {});
+                            },
                           ),
-                        ),
-                        onChanged: (value){
-                          name = value;
-                          setState((){});
-                        },
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      TextFormField(
-                        obscureText: true,
-                        validator: (value){
-                          if(value == null || value == ""){
-                            return "Password cannot be empty";
-                          }else if(value.length < 6){
-                            return "Password length should be atleast 6";
-                          }
-                          return null;
-                        },
-                        decoration: const InputDecoration(
-                          hintText: "Enter Password",
-                          labelText: "Password",
-                          hintStyle: TextStyle(
-                              color: Colors.grey
+                          const SizedBox(
+                            height: 10,
                           ),
-                        ),
+                          TextFormField(
+                            obscureText: true,
+                            validator: (value) {
+                              if (value == null || value == "") {
+                                return "Password cannot be empty";
+                              } else if (value.length < 6) {
+                                return "Password length should be atleast 6";
+                              }
+                              return null;
+                            },
+                            decoration: const InputDecoration(
+                              hintText: "Enter Password",
+                              labelText: "Password",
+                              hintStyle: TextStyle(color: Colors.grey),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 25,
+                          ),
+                          Material(
+                              borderRadius:
+                                  BorderRadius.circular(changeButton ? 45 : 10),
+                              color: Colors.deepPurple,
+                              child: InkWell(
+                                  onTap: () => goToHome(context),
+                                  child: AnimatedContainer(
+                                      duration:
+                                          const Duration(milliseconds: 500),
+                                      height: 45,
+                                      width: changeButton ? 45 : 160,
+                                      alignment: Alignment.center,
+                                      child: changeButton
+                                          ? const Icon(
+                                              Icons.done,
+                                              color: Colors.white,
+                                            )
+                                          : const Text(
+                                              'Login',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 20,
+                                              ),
+                                            ))))
+                        ],
                       ),
-                      const SizedBox(
-                        height: 25,
-                      ),
-                      Material(
-                          borderRadius: BorderRadius.circular(changeButton ? 45 : 10),
-                          color: Colors.deepPurple,
-                          child: InkWell(
-                              onTap: () => goToHome(context),
-                              child: AnimatedContainer(
-                                  duration: const Duration(milliseconds: 500),
-                                  height: 45,
-                                  width: changeButton ? 45 : 160,
-                                  alignment: Alignment.center,
-                                  child: changeButton ? const Icon(
-                                    Icons.done,
-                                    color: Colors.white,
-                                  ) : const Text('Login', style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
-                                  ),)
-                              )
-                          )
-                      )
-                    ],
-                  ),
-                )
-            )
-          ],
-        )
-      )
-    );
+                    ))
+              ],
+            )));
   }
 }
