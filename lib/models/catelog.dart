@@ -1,8 +1,15 @@
-class CatelogModel{
+class CatelogModel {
   static var items;
+
+  // Get item by its id
+  Item getById(int id) =>
+      items.firstWhere((elememt) => elememt.id == id, orElse: null);
+
+  // Get by its position
+  Item getByPosition(int pos) => items[pos];
 }
 
-class Item{
+class Item {
   final int id;
   final String name;
   final String desc;
@@ -10,9 +17,15 @@ class Item{
   final String color;
   final String image;
 
-  Item({required this.id, required this.name, required this.desc, required this.price, required this.color, required this.image});
+  Item(
+      {required this.id,
+      required this.name,
+      required this.desc,
+      required this.price,
+      required this.color,
+      required this.image});
 
-  factory Item.fromMap(Map<String,dynamic> map){
+  factory Item.fromMap(Map<String, dynamic> map) {
     return Item(
       id: map['id'],
       name: map['name'],
@@ -24,11 +37,11 @@ class Item{
   }
 
   toMap() => {
-    "id": id,
-    "name": name,
-    "desc": desc,
-    "price": price,
-    "color": color,
-    "image": image,
-  };
+        "id": id,
+        "name": name,
+        "desc": desc,
+        "price": price,
+        "color": color,
+        "image": image,
+      };
 }

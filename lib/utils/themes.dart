@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -44,8 +45,26 @@ class MyTheme {
           )));
 
   //Colors
-  static Color creamColor = const Color(0xfff5f5f5);
+  static Color creamColor = Color(0xfff5f5f5);
   static Color darkCreamColor = Vx.gray900;
-  static Color darkBluishColor = const Color(0xff403b58);
+  static Color darkBluishColor = Color(0xff403b58);
   static Color lightBluishColor = Vx.indigo500;
+
+  static void lightStatusNavBar() {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: MyTheme.creamColor,
+      systemNavigationBarColor: MyTheme.creamColor,
+      statusBarIconBrightness: Brightness.dark,
+      systemNavigationBarIconBrightness: Brightness.dark,
+    ));
+  }
+
+  static void darkStatusNavBar() {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: MyTheme.darkCreamColor,
+      systemNavigationBarColor: MyTheme.darkCreamColor,
+      statusBarIconBrightness: Brightness.light,
+      systemNavigationBarIconBrightness: Brightness.light,
+    ));
+  }
 }

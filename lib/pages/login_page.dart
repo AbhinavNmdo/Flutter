@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:flutter_catelog/utils/routes.dart';
+import 'package:flutter_catelog/utils/themes.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -28,6 +29,9 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    Theme.of(context).brightness == Brightness.light
+        ? MyTheme.lightStatusNavBar()
+        : MyTheme.darkStatusNavBar();
     return Material(
         color: Theme.of(context).canvasColor,
         child: Form(

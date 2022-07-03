@@ -11,6 +11,9 @@ class HomeDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Theme.of(context).brightness == Brightness.light
+        ? MyTheme.lightStatusNavBar()
+        : MyTheme.darkStatusNavBar();
     return Scaffold(
       backgroundColor: Theme.of(context).canvasColor,
       bottomNavigationBar: Container(

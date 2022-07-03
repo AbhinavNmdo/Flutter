@@ -18,26 +18,6 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-void _lightStatusNavBar() {
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: MyTheme.creamColor,
-    systemNavigationBarColor: MyTheme.creamColor,
-    statusBarIconBrightness: Brightness.dark,
-    systemNavigationBarIconBrightness: Brightness.dark,
-  ));
-  print('hii');
-}
-
-void _darkStatusNavBar() {
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: MyTheme.darkCreamColor,
-    systemNavigationBarColor: MyTheme.darkCreamColor,
-    statusBarIconBrightness: Brightness.light,
-    systemNavigationBarIconBrightness: Brightness.light,
-  ));
-  print('hii2');
-}
-
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
@@ -59,8 +39,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     Theme.of(context).brightness == Brightness.light
-        ? _lightStatusNavBar()
-        : _darkStatusNavBar();
+        ? MyTheme.lightStatusNavBar()
+        : MyTheme.darkStatusNavBar();
     return Scaffold(
         floatingActionButton: FloatingActionButton(
           onPressed: () {
