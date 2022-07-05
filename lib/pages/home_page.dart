@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:flutter_catelog/models/catelog.dart';
-import 'package:flutter_catelog/pages/cart_page.dart';
 import 'package:flutter_catelog/utils/routes.dart';
 import 'package:flutter_catelog/utils/themes.dart';
 import 'package:velocity_x/velocity_x.dart';
-
 import '../widgets/home_widgets/catelog_header.dart';
 import '../widgets/home_widgets/catelog_list.dart';
 

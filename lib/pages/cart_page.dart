@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_catelog/utils/themes.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:flutter_catelog/models/cart.dart';
 
 class CartPage extends StatelessWidget {
   @override
@@ -34,6 +35,7 @@ class CartPage extends StatelessWidget {
 class _CartTotal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final _cart = CartModel();
     Theme.of(context).brightness == Brightness.light
         ? MyTheme.lightStatusNavBar()
         : MyTheme.darkStatusNavBar();
@@ -44,7 +46,7 @@ class _CartTotal extends StatelessWidget {
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Text(
-            '\$9999',
+            '\$${_cart.totalPrice}',
             style:
                 TextStyle(color: Theme.of(context).accentColor, fontSize: 32),
           ),
@@ -79,16 +81,22 @@ class _CartList extends StatefulWidget {
 }
 
 class _CartListState extends State<_CartList> {
+  final _cart = CartModel();
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: 5,
-        itemBuilder: (context, index) => ListTile(
-              leading: const Icon(Icons.done),
-              trailing: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.remove_circle_outline)),
-              title: Text('Item 1'),
-            ));
+    return _cart.items.isEmpty
+        ? 'Nothing to show here'.text.xl3.make()
+        : ListView.builder(
+            itemCount: _cart.items.length,
+            itemBuilder: (context, index) => ListTile(
+                  leading: const Icon(Icons.done),
+                  trailing: IconButton(
+                      onPressed: () {
+                        _cart.remove(_cart.items[index]);
+                        setState(() {});
+                      },
+                      icon: const Icon(Icons.remove_circle_outline)),
+                  title: Text(_cart.items[index].name),
+                ));
   }
 }
