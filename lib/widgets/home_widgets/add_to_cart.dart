@@ -1,31 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_catelog/core/store.dart';
 import 'package:flutter_catelog/models/cart.dart';
 import 'package:flutter_catelog/models/catelog.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class AddtoCart extends StatefulWidget {
+class AddtoCart extends StatelessWidget {
   final catelog;
-  const AddtoCart({Key? key, this.catelog}) : super(key: key);
+  AddtoCart({Key? key, this.catelog}) : super(key: key);
 
-  @override
-  State<AddtoCart> createState() => _AddtoCartState();
-}
-
-class _AddtoCartState extends State<AddtoCart> {
-  final _cart = CartModel();
   @override
   Widget build(BuildContext context) {
-    bool isInCart = _cart.items.contains(widget.catelog);
+    VxState.watch(context, on: [AddMutation, RemoveMutation]);
+    final CartModel _cart = (VxState.store as MyStore).cart;
+    final CatelogModel _catelog = (VxState.store as MyStore).catelog;
+    bool isInCart = _cart.items.contains(catelog);
     return ElevatedButton(
       onPressed: () {
-        final _catelog = CatelogModel();
         if (!isInCart) {
-          _cart.catelog = _catelog;
-          _cart.add(widget.catelog);
-          setState(() {});
+          AddMutation(catelog);
+          // setState(() {});
         }
-        setState(() {});
+        // setState(() {});
       },
       style: ButtonStyle(
         backgroundColor:

@@ -1,10 +1,4 @@
 class CatelogModel {
-  static final cartModel = CatelogModel._internal();
-
-  CatelogModel._internal();
-
-  factory CatelogModel() => cartModel;
-
   static var items;
 
   // Get item by its id
